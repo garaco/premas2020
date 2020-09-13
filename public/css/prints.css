@@ -1,0 +1,18 @@
+@page {
+  size: A4 landscape;
+}
+BODY {
+font: 8pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+margin: 10 0 10 0px;
+text-align: center;
+background-color: #ffffff;
+}
+#filtro{
+display: none !important;
+}
+#table{
+	height: 600px;
+}
+#visible{
+	display:none;
+}

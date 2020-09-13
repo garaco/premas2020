@@ -1,0 +1,114 @@
+DROP PROCEDURE IF EXISTS itssanan_premas.actualizar_programa;
+CREATE PROCEDURE itssanan_premas.`actualizar_programa`(IdDepartamento Int, anio int)
+BEGIN
+-- variables para los ciclo
+DECLARE inicio int; DECLARE final int; DECLARE id int; DECLARE dato int;
+
+-- variables para las condiciones
+DECLARE mes int; DECLARE ene int; DECLARE feb int; DECLARE mar int; DECLARE abr int; DECLARE may int; DECLARE jun int; DECLARE jul int; DECLARE ago int; DECLARE sep int; DECLARE ocb int; DECLARE nov int; DECLARE dic int;
+
+-- se le asigna el mes en digito a cada variable
+SET ene = 01;SET feb = 02;SET mar = 03;SET abr = 04; SET may = 05;SET jun = 06;SET jul = 07;SET ago = 08; SET sep = 09;SET ocb = 10;SET nov = 11;SET dic = 12;
+
+SET mes=0;
+SET final =  (select max(a.IdPrograma_anual) from programa_anual_requisiciones as a where a.IdDepartamento = IdDepartamento and a.Anio = anio);
+SET inicio = (select min(a.IdPrograma_anual) from programa_anual_requisiciones as a where a.IdDepartamento = IdDepartamento and a.Anio = anio);
+
+-- ciclo para cambiar las existencias que se quedaron en meses anteriores al actual
+WHILE inicio<=final do
+-- se verifica que ese id exista
+SET dato =  (select count(*) from programa_anual_requisiciones as a where a.IdDepartamento = IdDepartamento and a.Anio = anio and a.IdPrograma_anual = inicio );
+  IF dato>0 THEN
+    -- se se suman todos los valores que sean menor o igual al mes actuaal
+     IF MONTH(now())  >= ene THEN
+        SET mes = mes + (select a.Ene from programa_anual_requisiciones as a where a.IdDepartamento = IdDepartamento and a.Anio = anio and a.IdPrograma_anual = inicio );
+      END IF;
+      IF MONTH(now()) >=  feb THEN
+        SET mes = mes + (select a.Feb from programa_anual_requisiciones as a where a.IdDepartamento = IdDepartamento and a.Anio = anio and a.IdPrograma_anual = inicio );
+      END IF;
+      IF MONTH(now())  >= mar THEN
+        SET mes = mes + (select a.Mar from programa_anual_requisiciones as a where a.IdDepartamento = IdDepartamento and a.Anio = anio and a.IdPrograma_anual = inicio );
+      END IF;
+      IF MONTH(now())  >= abr THEN
+        SET mes = mes + (select a.Abr from programa_anual_requisiciones as a where a.IdDepartamento = IdDepartamento and a.Anio = anio and a.IdPrograma_anual = inicio );
+      END IF;
+      IF MONTH(now())  >= may THEN
+        SET mes = mes + (select a.May from programa_anual_requisiciones as a where a.IdDepartamento = IdDepartamento and a.Anio = anio and a.IdPrograma_anual = inicio );
+      END IF;
+      IF MONTH(now())  >= jun THEN
+        SET mes = mes + (select a.Jun from programa_anual_requisiciones as a where a.IdDepartamento = IdDepartamento and a.Anio = anio and a.IdPrograma_anual = inicio );
+      END IF;
+      IF MONTH(now())  >= jul THEN
+        SET mes = mes + (select a.Jul from programa_anual_requisiciones as a where a.IdDepartamento = IdDepartamento and a.Anio = anio and a.IdPrograma_anual = inicio );
+      END IF;
+      IF MONTH(now())  >= ago THEN
+        SET mes = mes + (select a.Ago from programa_anual_requisiciones as a where a.IdDepartamento = IdDepartamento and a.Anio = anio and a.IdPrograma_anual = inicio );
+      END IF;
+      IF MONTH(now())  >= sep THEN
+        SET mes = mes + (select a.Sep from programa_anual_requisiciones as a where a.IdDepartamento = IdDepartamento and a.Anio = anio and a.IdPrograma_anual = inicio );
+      END IF;
+      IF MONTH(now())  >= ocb THEN
+        SET mes = mes + (select a.Oct from programa_anual_requisiciones as a where a.IdDepartamento = IdDepartamento and a.Anio = anio and a.IdPrograma_anual = inicio );
+      END IF;
+      IF MONTH(now())  >= nov THEN
+        SET mes = mes + (select a.Nov from programa_anual_requisiciones as a where a.IdDepartamento = IdDepartamento and a.Anio = anio and a.IdPrograma_anual = inicio );
+      END IF;
+      IF MONTH(now())  >= dic THEN
+        SET mes = mes + (select a.Dic from programa_anual_requisiciones as a where a.IdDepartamento = IdDepartamento and a.Anio = anio and a.IdPrograma_anual = inicio );
+      END IF;
+
+
+    -- se se compara para saber en donde que me se almacenara los valores anteriores
+     IF MONTH(now())  = ene THEN
+        UPDATE programa_anual_requisiciones SET  Ene=mes  WHERE IdPrograma_anual=inicio;
+        UPDATE cantidameses_inicial_pr SET  Ene=mes  WHERE IdRequisicionAnual=inicio;
+      END IF;
+      IF MONTH(now()) =  feb THEN
+        UPDATE programa_anual_requisiciones SET  Ene='0', Feb=mes  WHERE IdPrograma_anual=inicio;
+        UPDATE cantidameses_inicial_pr SET  Ene='0', Feb=mes  WHERE IdRequisicionAnual=inicio;
+      END IF;
+      IF MONTH(now())  = mar THEN
+        UPDATE programa_anual_requisiciones SET  Ene='0', Feb='0', Mar=mes  WHERE IdPrograma_anual=inicio;
+        UPDATE cantidameses_inicial_pr SET  Ene='0', Feb='0', Mar=mes  WHERE IdRequisicionAnual=inicio;
+      END IF;
+      IF MONTH(now())  = abr THEN
+        UPDATE programa_anual_requisiciones SET  Ene='0', Feb='0', Mar='0', Abr=mes  WHERE IdPrograma_anual=inicio;
+        UPDATE cantidameses_inicial_pr SET  Ene='0', Feb='0', Mar='0', Abr=mes  WHERE IdRequisicionAnual=inicio;
+      END IF;
+      IF MONTH(now())  = may THEN
+        UPDATE programa_anual_requisiciones SET  Ene='0', Feb='0', Mar='0', Abr='0', May=mes  WHERE IdPrograma_anual=inicio;
+        UPDATE cantidameses_inicial_pr SET  Ene='0', Feb='0', Mar='0', Abr='0', May=mes  WHERE IdRequisicionAnual=inicio;
+      END IF;
+      IF MONTH(now())  = jun THEN
+        UPDATE programa_anual_requisiciones SET  Ene='0', Feb='0', Mar='0', Abr='0', May='0', Jun=mes  WHERE IdPrograma_anual=inicio;
+        UPDATE cantidameses_inicial_pr SET  Ene='0', Feb='0', Mar='0', Abr='0', May='0', Jun=mes  WHERE IdRequisicionAnual=inicio;
+      END IF;
+      IF MONTH(now())  = jul THEN
+        UPDATE programa_anual_requisiciones SET  Ene='0', Feb='0', Mar='0', Abr='0', May='0', Jun='0', Jul=mes  WHERE IdPrograma_anual=inicio;
+        UPDATE cantidameses_inicial_pr SET  Ene='0', Feb='0', Mar='0', Abr='0', May='0', Jun='0', Jul=mes  WHERE IdRequisicionAnual=inicio;
+      END IF;
+      IF MONTH(now())  = ago THEN
+        UPDATE programa_anual_requisiciones SET  Ene='0', Feb='0', Mar='0', Abr='0', May='0', Jun='0', Jul='0', Ago=mes  WHERE IdPrograma_anual=inicio;
+        UPDATE cantidameses_inicial_pr SET  Ene='0', Feb='0', Mar='0', Abr='0', May='0', Jun='0', Jul='0', Ago=mes  WHERE IdRequisicionAnual=inicio;
+      END IF;
+      IF MONTH(now())  = sep THEN
+        UPDATE programa_anual_requisiciones SET  Ene='0', Feb='0', Mar='0', Abr='0', May='0', Jun='0', Jul='0', Ago='0', Sep=mes  WHERE IdPrograma_anual=inicio;
+        UPDATE cantidameses_inicial_pr SET  Ene='0', Feb='0', Mar='0', Abr='0', May='0', Jun='0', Jul='0', Ago='0', Sep=mes  WHERE IdRequisicionAnual=inicio;
+      END IF;
+      IF MONTH(now())  = ocb THEN
+        UPDATE programa_anual_requisiciones SET  Ene='0', Feb='0', Mar='0', Abr='0', May='0', Jun='0', Jul='0', Ago='0', Sep='0', Oct='0'  WHERE IdPrograma_anual=inicio;
+        UPDATE cantidameses_inicial_pr SET  Ene='0', Feb='0', Mar='0', Abr='0', May='0', Jun='0', Jul='0', Ago='0', Sep='0', Oct='0'  WHERE IdRequisicionAnual=inicio;
+      END IF;
+      IF MONTH(now())  = nov THEN
+        UPDATE programa_anual_requisiciones SET  Ene='0', Feb='0', Mar='0', Abr='0', May='0', Jun='0', Jul='0', Ago='0', Sep='0', Oct='0', Nov='0'  WHERE IdPrograma_anual=inicio;
+        UPDATE cantidameses_inicial_pr SET  Ene='0', Feb='0', Mar='0', Abr='0', May='0', Jun='0', Jul='0', Ago='0', Sep='0', Oct='0', Nov='0'  WHERE IdRequisicionAnual=inicio;
+      END IF;
+      IF MONTH(now())  = dic THEN
+        UPDATE programa_anual_requisiciones SET  Ene='0', Feb='0', Mar='0', Abr='0', May='0', Jun='0', Jul='0', Ago='0', Sep='0', Oct='0', Nov='0', Dic=mes  WHERE IdPrograma_anual=inicio;
+        UPDATE cantidameses_inicial_pr SET  Ene='0', Feb='0', Mar='0', Abr='0', May='0', Jun='0', Jul='0', Ago='0', Sep='0', Oct='0', Nov='0', Dic=mes  WHERE IdRequisicionAnual=inicio;
+      END IF;
+  END IF;
+  SET mes = 0;
+  SET inicio=inicio+1;
+END WHILE;
+END;

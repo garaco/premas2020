@@ -1,0 +1,14 @@
+<script src="<?php echo PATH_PUBLIC ?>/jquery/jquery.min.js"> </script>
+<script src="<?php echo PATH_PUBLIC ?>/js/siderbar.js"></script>
+<script src="<?php echo PATH_PUBLIC ?>/js/request.js"></script>
+<script src="<?php echo PATH_PUBLIC ?>/js/script.js"></script>
+<script src="<?php echo PATH_PUBLIC ?>/boostrap/js/bootstrap.min.js"></script>
+<script src="<?php echo PATH_PUBLIC ?>/js/alertify.js"></script>
+<script src="<?php echo PATH_PUBLIC ?>/js/alertify.min.js"></script>
+<script src="<?php echo PATH_PUBLIC ?>/js/mensaje.js"></script>
+<script src="<?php echo PATH_PUBLIC ?>/js/datatables/jquery.dataTables.min.js"></script>
+<script src="<?php echo PATH_PUBLIC ?>/js/datatables/dataTables.bootstrap4.min.js"></script>
+<script src="<?php echo PATH_PUBLIC ?>/js/tabla.js"></script>
+<script src="<?php echo PATH_PUBLIC ?>/js/final.js"></script>
+<script src="<?php echo PATH_PUBLIC ?>/js/loader.js"></script>
+<!-- <script src="<?php echo PATH_PUBLIC ?>/js/cssrefresh.js"></script> -->
